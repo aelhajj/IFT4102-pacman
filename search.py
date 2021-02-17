@@ -107,7 +107,8 @@ def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
     visited = []
     path = util.Queue()
-    visited.append(problem.getStartState())
+    current = problem.getStartState()
+    visited.append(current)
     path.push((problem.getStartState(), [], 0))
 
     while not path.isEmpty():
