@@ -139,7 +139,6 @@ def uniformCostSearch(problem):
                 if successor[0] not in visited:
                     total_cost = cost + successor[2]
                     total_path = directions + [successor[1]]
-                    print("pushing: " + str(successor[0]))
                     path.push((successor[0], total_path,
                                total_cost), total_cost)
     return []
@@ -170,7 +169,6 @@ def aStarSearch(problem, heuristic=nullHeuristic):
 
             for successor in problem.getSuccessors(current):
                 if successor[0] not in visited:
-                    print(successor)
                     total_cost = cost + successor[2]
                     total_path = directions + [successor[1]]
                     path.update((successor[0], total_path, total_cost), total_cost + heuristic(successor[0], problem))
