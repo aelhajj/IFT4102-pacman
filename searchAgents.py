@@ -366,17 +366,28 @@ def cornersHeuristic(state, problem):
     admissible (as well as consistent).
     """
     corners = problem.corners # These are the corner coordinates
-    walls = problem.walls # These are the walls of the maze, as a Grid (game.py)
-
-    position, visited = state
-    distance = 0
+    corners_left = []
+    position, visited_corners = state
+    last_position = position
+    distances = []
+    result = 0
 
     for corner in corners:
-        if corner not in visited:
-            xy1 = position
+        if corner not in visited_corners:
+            corners_left.append(corner)
+
+    while len(corners_left) > 0:
+        distances = []
+        for corner in corners_left:
+            xy1 = last_position
             xy2 = corner
-            distance = max(distance, abs(xy1[0] - xy2[0]) + abs(xy1[1] - xy2[1]))
-    return distance
+            distances.append(abs(xy1[0] - xy2[0]) + abs(xy1[1] - xy2[1]))
+        min_distance = min(distances)
+        result += min_distance
+        i = distances.index(min_distance)
+        last_position = corners_left[i]
+        corners_left.remove(last_position)
+    return result
 
 
 class AStarCornersAgent(SearchAgent):
